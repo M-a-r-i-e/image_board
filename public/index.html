@@ -42,11 +42,11 @@
 
         <overlay v-on:close="selectedImageId=false" v-if="selectedImageId" v-bind:id="selectedImageId">
 
-            <!-- <form id="comment">
-                <input type="text" name="nameComment" placeholder="YOUR NAME" v-model="name">
-                <textarea type="text" name="comment" placeholder="YOUR COMMENT" v-model="comment"></textarea>
+            <form id="comment">
+                <input type="text" name="nameComment" placeholder="YOUR NAME" v-bind="name">
+                <textarea type="text" name="comment" placeholder="YOUR COMMENT" v-bind="comment"></textarea>
                 <button v-on:click="sendComment">send</button>
-            </form> -->
+            </form>
 
         </overlay>
 
@@ -66,9 +66,9 @@
             <img v-bind:src="imageURL" alt="aktuellesBild">
 
 
-            <!-- <input>{{name}}
+            <input>{{name}}
             <textarea>{{comment}}</textarea>
-            <button>send</button> -->
+            <button>send</button>
         </div>
     </script>
 </body>

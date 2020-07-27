@@ -24,6 +24,8 @@ exports.getImage = (imageId) => {
     });
 }
 
-exports.getAllComments = (id) => {
-    return db.query("SELECT * FROM comments LEFT JOIN images ON id = id;", [id]);
+exports.getAllComments = (imageId) => {
+    return db.query("SELECT * FROM comments WHERE image_id = $1;", [imageId]).then((result) =>{
+        return result.rows;
+    });
 };

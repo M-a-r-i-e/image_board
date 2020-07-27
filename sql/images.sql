@@ -34,9 +34,10 @@ DROP TABLE IF EXISTS comments;
 
 CREATE TABLE comments(
 
-    image_id SERIAL PRIMARY KEY,
-    username VARCHAR NOT NULL
-    comment_text TEXT
+    id SERIAL PRIMARY KEY,
+    image_id INTEGER NOT NULL REFERENCES images(id),
+    username VARCHAR NOT NULL,
+    comment_text TEXT,
     comment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 );

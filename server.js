@@ -45,20 +45,29 @@ app.get("/api/v1/images", (request, response) => {
 
 app.post("/upload", uploader.single("file"), (request,response) => {
 
-    // const s3imageURL = s3.generateBucketURL(request.file.filename);
+    const s3imageURL = s3.generateBucketURL(request.file.filename);
 
-     // s3.uploadFile(request.file).then(result => {
-     //     console.log("s3 upload result", result);
-     // });
+    s3.uploadFile(request.file)
+        .then((response) => {
+            console.log("response", response);
+            const { username, title, description } = request.body;
+            return db.addImage(s3imageURL, username, title, description);
+        })
+        .then((resultFromDb) => {
+            console.log("resultFromDb", resultFromDb);
+            const imageInfoFromDB = resultFromDb.rows[0];
 
-     response.json({
-         success: true,
-         fileURL: "/uploads/" + request.file.filename,
-     })
-     .catch((error) => {
-         response.status(500).json({
-             success: false,
-             error: error,
+            response.json({
+                success: true,
+                ...imageInfoFromDB,
+            });
+        })
+    
+        .catch((error) => {
+            console.log("error", error)
+            response.status(500).json({
+            success: false,
+            error: error,
          })
      })
 });
@@ -75,5 +84,15 @@ app.get("/api/v1/image/:id", (request, response) => {
             response.status(404).json({error: "seite nicht gefunden"}) //!!!
         })    
 });
+
+
+// app.get ("/api/v1/image/comments/:id",(request, response) => {
+
+//     db.getAllComments()
+//         .then(results => {
+            
+            
+//         });
+// });
 
 app.listen(8080);

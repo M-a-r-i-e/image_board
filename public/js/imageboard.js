@@ -75,7 +75,8 @@ Vue.component('overlay', { // name des tags
             username: "",
             description: "",
             imageURL: "",
-            comments: [],
+            comment: [],
+            name: "",
         };
     }, 
 
