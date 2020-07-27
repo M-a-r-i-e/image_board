@@ -7,30 +7,49 @@
 <body>
     <header>
 
-        <h1>imageboard</h1>
+        <h1>Window Board</h1>        
 
     </header>
     
     
     <div id="main">
+        
+        <form class="upload">
+            <h2>SHARE THE MOST BEAUTIFUL <span class="windows">WINDOWS</span>.</h2>
 
-        <form>
-            <h2>share your picture</h2>
-            <input type="text" name="title" placeholder="image title" v-model="title">
+            <input type="text" name="username" placeholder="YOUR NAME" v-model="username">
+
+            <input type="text" name="title" placeholder="IMAGE TITLE" v-model="title">
+
+            <input type="text" name="description" placeholder="IMAGE DESCRIPTION" v-model="description">
 
             <input v-on:change="fileChanged" type="file" name="file" id="file" accept="image/*">
 
-            <button v-on:click="uploadImage">Upload</button>
+            <button v-on:click="uploadImage">UPLOAD</button>
 
-        </form>
+        </form>        
 
         <div class="containerImages">
-            <div v-for="image in images" class="boxImages">
+            <div v-for="image in images" class="boxImages" v-on:click="selectedImageId=image.id">
                 <img v-bind:src="image.url" v-bind:alt="image.title">
                 <div class="title">{{image.title}}</div>
                 <div class="username">{{image.username}}</div>
             </div>
+
+        <!-- <button>load more</button> -->
+
         </div>
+
+        <overlay v-on:close="selectedImageId=false" v-if="selectedImageId" v-bind:id="selectedImageId">
+
+            <!-- <form id="comment">
+                <input type="text" name="nameComment" placeholder="YOUR NAME" v-model="name">
+                <textarea type="text" name="comment" placeholder="YOUR COMMENT" v-model="comment"></textarea>
+                <button v-on:click="sendComment">send</button>
+            </form> -->
+
+        </overlay>
+
     </div>
 
     <script type=""></script>
@@ -38,5 +57,19 @@
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/imageboard.js"></script>
+    <script type="text/x-template" id="templateOverlay">
+        <div class="overlay">
+            <button v-on:click="closeSign" class="close">x</button>
+            <h1>{{title}}</h1>    
+            <h2>{{username}}</h2> 
+            <p>{{description}}</p>        
+            <img v-bind:src="imageURL" alt="aktuellesBild">
+
+
+            <!-- <input>{{name}}
+            <textarea>{{comment}}</textarea>
+            <button>send</button> -->
+        </div>
+    </script>
 </body>
 </html>

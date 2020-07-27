@@ -1,11 +1,67 @@
 
+body {
 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    text-decoration: underline;
+    font-size: xx-large;
+    color: rgba(206, 129, 129, 0.9);
+    margin-left: 60px;
+}
+
+.upload {
+
+    margin-left: 60px;
+    border: solid 1px rgba(206, 129, 129, 0.9);
+    border-radius: 5px;
+    /* display: grid;
+    grid-row: 1fr 2fr;
+    grid-column: 1fr 1fr 1fr 1fr; */
+}
+
+
+.upload h2 {
+
+    color: rgba(206, 129, 129, 0.9);
+    font-weight: lighter;
+
+}
+
+.windows {
+    background-color: rgba(206, 129, 129, 0.9);
+    color: rgb(255, 255, 255);
+}
+
+.upload input[type=text] {
+    width: 20%;
+    height: 30px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: rgba(206, 129, 129, 0.8) solid 1px;
+    display: block;
+}
+.upload input[type=button], .upload button {
+    background: rgba(206, 129, 129, 0.9);
+    border: solid 1px rgba(206, 129, 129, 0.8);
+    width: 20%;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.upload input[type=button], #file{
+
+}
 
 .containerImages {
     max-width: 900px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 
@@ -13,12 +69,90 @@
 
     margin-right: 10px;
     margin-bottom: 10px;
-    background: white;
-    padding: 10px;
+    margin-top: 10px;
+    background: rgb(129, 23, 23);
+    width: 200px;
+    height: 200px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
 
+.boxImages:hover {
+
+    transform: scale(1.03);
+    transition: 0.2s all;
+}
+
+.boxImages:hover .title{
+
+    transform: scale(1.03);
+    transition: 0.2s all;
+    opacity: 1;
+}
+
+.boxImages:hover .username{
+
+    transform: scale(1.03);
+    transition: 0.2s all;
+    opacity: 1;
 }
 
 
 .boxImages img {
-    max-width: 100%;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    overflow: hidden;
+    position: relative;
+}
+
+.boxImages .title {
+    font-size: xx-small;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    align-self: flex-start;
+    margin-left: 5px;
+    margin-top: 5px;
+    opacity: 0;
+}
+
+.boxImages .username {
+    font-size: xx-small;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    align-self: flex-start;
+    margin-left: 5px;
+    margin-top: 20px;
+    opacity: 0;
+}
+
+.overlay {
+
+    background: rgba(230, 230, 230, 0.8);
+    position: absolute;
+    width: 80%;
+    height: 70%;
+    transform: translate(10%, -70%);
+}
+
+.overlay img {
+
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    overflow: hidden;
+    margin-left: 50px;
+}
+
+.overlay #comments {
+
+
+}
+
+.overlay .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    
 }
