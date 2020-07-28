@@ -28,9 +28,9 @@ exports.uploadFile = (fileFromRequest) => {
         ContentType: mimetype,
         ContentLength: size
     }).promise()
-    // .then(response => {
+     .then(response => {
         // return {success :true};
-    // });
+    });
 }
 
 

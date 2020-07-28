@@ -49,12 +49,10 @@ app.post("/upload", uploader.single("file"), (request,response) => {
 
     s3.uploadFile(request.file)
         .then((response) => {
-            console.log("response", response);
             const { username, title, description } = request.body;
             return db.addImage(s3imageURL, username, title, description);
         })
         .then((resultFromDb) => {
-            console.log("resultFromDb", resultFromDb);
             const imageInfoFromDB = resultFromDb.rows[0];
 
             response.json({
@@ -85,14 +83,43 @@ app.get("/api/v1/image/:id", (request, response) => {
         })    
 });
 
+// return comments of selected image
+app.get("/api/v1/comments-image/:imageId",(request, response) => {
 
-// app.get ("/api/v1/image/comments/:id",(request, response) => {
+    const imageId = request.params.imageId;
 
-//     db.getAllComments()
-//         .then(results => {
-            
-            
-//         });
-// });
+    db.getAllComments(imageId)
+        .then((comments) => {
+            response.json(comments);            
+        })
+        .catch((error) => {
+            response.status(500).send("something went wrong");
+            console.log(error);
+        })
+});
+
+
+// endpoint that recieves comment and stores it in db
+
+app.post("/api/v1/comments-create", uploader.none(), (request, response) => {
+
+    console.log("body:", request.body)
+
+    const image_id = request.body.image_id;
+    const username = request.body.username;
+    const comment_text = request.body.comment_text;
+
+    db.addComment(image_id, username, comment_text)
+
+        .then((newComment) => {
+
+            response.json(newComment);
+        }
+    ).catch(error => {
+        console.log("error", error)
+        response.json({success: false, error: error});
+    })
+
+})
 
 app.listen(8080);

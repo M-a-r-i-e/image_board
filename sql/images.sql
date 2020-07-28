@@ -41,3 +41,9 @@ CREATE TABLE comments(
     comment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 );
+
+INSERT INTO comments (image_id, username, comment_text) VALUES (
+    '2',
+    'Lena',
+    'Wow, sehr schön!'
+);

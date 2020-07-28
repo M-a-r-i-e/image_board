@@ -75,32 +75,86 @@ Vue.component('overlay', { // name des tags
             username: "",
             description: "",
             imageURL: "",
-            comment: [],
+            comments: [],
             name: "",
+
+            comment_username: "",
+            comment_comment_text: "",
         };
     }, 
 
-    mounted: function() {
-        axios.get('/api/v1/image/' + this.id).then((response) => {
-            this.title = response.data.title;
-            this.description = response.data.description;
-            this.imageURL = response.data.url;
-        });
-    },    
-    
-    // mounted:
-    //     // In our image board, we want to make an AJaX call here
-    //     // and we want to use this property from outside (selectedImage)
-    //     // to load the correct image
-    //     // axios.get("/api/v1/images/2")
-    
     methods: {
+
         closeSign: function() {
             console.log("close this sign");
             this.$emit('close');
             // window.location.hash = "";  url zurücksetzten
-        }
+        },
+
+        loadImage: function () {
+            axios.get("/api/v1/image/" + this.id).then((response) => {
+                if (response.data) {
+                    this.title = response.data.title;
+                    this.description = response.data.description;
+                    this.imageURL = response.data.url;
+                } else {
+                    console.log(
+                        "Did not receive anything useful. Image probably does not exist."
+                    );
+                    alert("Sorry, image does not exist...");
+                    this.closeMe();
+                }
+            });
+        },
+
+
+        loadComments: function() {
+            axios.get("/api/v1/comments-image/" + this.id)
+                .then((response) => {
+                    if(response.data) {
+                        this.comments = response.data;
+                    } else {
+                        console.log("no data in response")
+                    }
+                })
+        },
+
+        sendComment: function() {
+
+        const myData = new FormData();
+        myData.append("username", this.comment_username);
+        myData.append("comment_text", this.comment_comment_text);
+        myData.append("image_id", this.id);
+
+        axios.post("/api/v1/comments-create", myData)
+            .then((response) => {
+                if(response.status == 200) {
+                    this.comments.push(response.data);
+                    this.comment_comment_text = "";
+                    this.comment_username = "";
+                }
+            })
+
+        },
+
     },
+    
+    mounted: function () {
+        this.loadImage();
+        this.loadComments();
+    },
+
+    watch: {
+        id: function () {
+            this.loadImage();
+            this.loadComments();
+        },
+    },
+
+   
+
+    
+
 
     // watch: {
     //     id: function() {
@@ -111,4 +165,11 @@ Vue.component('overlay', { // name des tags
     //         });
     //     }
     // }
+    // mounted: function() {
+    //     axios.get('/api/v1/image/' + this.id).then((response) => {
+    //         this.title = response.data.title;
+    //         this.description = response.data.description;
+    //         this.imageURL = response.data.url;
+    //     });
+    // },
 });

@@ -24,8 +24,14 @@ exports.getImage = (imageId) => {
     });
 }
 
+// return comments for selected image
 exports.getAllComments = (imageId) => {
     return db.query("SELECT * FROM comments WHERE image_id = $1;", [imageId]).then((result) =>{
         return result.rows;
     });
+};
+
+//stores comments in the db
+exports.addComment = (imageId, username, comment_text) => {
+    return db.query(`INSERT INTO comments(image_id, username, comment_text) VALUES ($1, $2, $3) RETURNING *;`, [imageId, username, comment_text]).then(result => result.rows[0]);
 };

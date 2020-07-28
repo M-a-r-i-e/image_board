@@ -15,7 +15,10 @@
     <div id="main">
         
         <form class="upload">
+
             <h2>SHARE THE MOST BEAUTIFUL <span class="windows">WINDOWS</span>.</h2>
+
+            <div class="eingabefelder">
 
             <input type="text" name="username" placeholder="YOUR NAME" v-model="username">
 
@@ -26,7 +29,7 @@
             <input v-on:change="fileChanged" type="file" name="file" id="file" accept="image/*">
 
             <button v-on:click="uploadImage">UPLOAD</button>
-
+            </div>
         </form>        
 
         <div class="containerImages">
@@ -40,15 +43,7 @@
 
         </div>
 
-        <overlay v-on:close="selectedImageId=false" v-if="selectedImageId" v-bind:id="selectedImageId">
-
-            <form id="comment">
-                <input type="text" name="nameComment" placeholder="YOUR NAME" v-bind="name">
-                <textarea type="text" name="comment" placeholder="YOUR COMMENT" v-bind="comment"></textarea>
-                <button v-on:click="sendComment">send</button>
-            </form>
-
-        </overlay>
+        <overlay v-on:close="selectedImageId=false" v-if="selectedImageId" v-bind:id="selectedImageId"></overlay>
 
     </div>
 
@@ -65,10 +60,19 @@
             <p>{{description}}</p>        
             <img v-bind:src="imageURL" alt="aktuellesBild">
 
+            <div class="comments">
+                <div class="comment" v-for="comment in comments">
+                    {{comment.username}}
+                    {{comment.comment_text}}
+                </div>
+            </div>
 
-            <input>{{name}}
-            <textarea>{{comment}}</textarea>
-            <button>send</button>
+            <div class="comment-formular">
+            <input v-model="comment_username" name="username" placeholder="YOUR NAME">
+            <input v-model="comment_comment_text" name="comment_text" placeholder="YOUR COMMENT">
+            <button v-on:click="sendComment">send</button>
+            </div>
+
         </div>
     </script>
 </body>
