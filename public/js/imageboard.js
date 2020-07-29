@@ -9,7 +9,7 @@ new Vue({
         file: "",
     
         images: [],
-        selectedImageId: false //!!!
+        selectedImageId: window.location.hash.replace("#",''),
         // showButton: true,
     },
     methods: {
@@ -58,11 +58,15 @@ new Vue({
         axios.get('/api/v1/images').then(response => {
             this.images = response.data;  
         });
+
+        addEventListener('hashchange', ()  => {
+            console.log("Hash change.");
+            this.selectedImageId = window.location.hash.replace("#", "");
+        });
+
+
     },
 
-    // addEventListener("hashchange", () => {
-    //     this.selectedImageId = windowm.location.hash.replace("#", "");
-    // })
 });
 
 
@@ -88,7 +92,7 @@ Vue.component('overlay', { // name des tags
         closeSign: function() {
             console.log("close this sign");
             this.$emit('close');
-            // window.location.hash = "";  url zurücksetzten
+            history.pushState(false, false, '#'); // url zurücksetzten
         },
 
         loadImage: function () {
@@ -98,11 +102,9 @@ Vue.component('overlay', { // name des tags
                     this.description = response.data.description;
                     this.imageURL = response.data.url;
                 } else {
-                    console.log(
-                        "Did not receive anything useful. Image probably does not exist."
-                    );
-                    alert("Sorry, image does not exist...");
-                    this.closeMe();
+                    console.log("Image probably does not exist.");
+                    alert("Sorry, image does not exist");
+                    this.closeSign();
                 }
             });
         },

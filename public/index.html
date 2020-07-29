@@ -33,11 +33,11 @@
         </form>        
 
         <div class="containerImages">
-            <div v-for="image in images" class="boxImages" v-on:click="selectedImageId=image.id">
+            <a v-bind:href="'#'+image.id" v-for="image in images" class="boxImages" v-on:click="selectedImageId=image.id">
                 <img v-bind:src="image.url" v-bind:alt="image.title">
                 <div class="title">{{image.title}}</div>
                 <div class="username">{{image.username}}</div>
-            </div>
+            </a>
 
         <!-- <button>load more</button> -->
 
