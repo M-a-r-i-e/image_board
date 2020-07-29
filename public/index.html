@@ -62,7 +62,7 @@
 
             <div class="comments">
                 <div class="comment" v-for="comment in comments">
-                    {{comment.username}}
+                    {{comment.username}}:
                     {{comment.comment_text}}
                 </div>
             </div>
@@ -70,7 +70,7 @@
             <div class="comment-formular">
             <input v-model="comment_username" name="username" placeholder="YOUR NAME">
             <input v-model="comment_comment_text" name="comment_text" placeholder="YOUR COMMENT">
-            <button v-on:click="sendComment">send</button>
+            <button v-on:click="sendComment">SEND</button>
             </div>
 
         </div>

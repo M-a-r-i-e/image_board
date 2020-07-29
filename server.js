@@ -122,4 +122,4 @@ app.post("/api/v1/comments-create", uploader.none(), (request, response) => {
 
 })
 
-app.listen(8080);
+app.listen(process.env.PORT || 8080);

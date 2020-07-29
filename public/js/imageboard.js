@@ -151,25 +151,4 @@ Vue.component('overlay', { // name des tags
         },
     },
 
-   
-
-    
-
-
-    // watch: {
-    //     id: function() {
-    //         axios.get('/api/v1/image/' + this.id).then((response) => {
-    //             this.title = response.data.title;
-    //             this.description = response.data.description;
-    //             this.imageURL = response.data.url;
-    //         });
-    //     }
-    // }
-    // mounted: function() {
-    //     axios.get('/api/v1/image/' + this.id).then((response) => {
-    //         this.title = response.data.title;
-    //         this.description = response.data.description;
-    //         this.imageURL = response.data.url;
-    //     });
-    // },
 });

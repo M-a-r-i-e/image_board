@@ -1,7 +1,7 @@
 
 const spicedPG = require("spiced-pg");
 
-const db = spicedPG("postgres:Marie1:@localhost:5432/imageboard");
+const db = spicedPG(process.env.DATABASE_URL || "postgres:Marie1:@localhost:5432/imageboard");
 
 exports.getImages = () => {
 
